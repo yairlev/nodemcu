@@ -1,0 +1,71 @@
+<html>
+
+<head>
+    <style>
+        ul.days {
+            list-style: none;
+
+        }
+
+        .days li {
+            display: inline;
+            padding: 5px;
+            background-color: gray;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        .days li.selected {
+            background-color: aquamarine;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll("li").forEach((e) => {
+                e.addEventListener("click", (t) => {
+                    e.classList.toggle('selected');
+                });
+            })
+        });
+        
+        var ws = new window.WebSocket('ws://192.168.1.1');
+
+        ws.addEventListener('open', function () {
+            console.log("Connected to server");
+        });
+
+        ws.addEventListener('message', function (msg) {
+            console.log("MSG: " + msg);
+        });
+    </script>
+</head>
+
+<body>
+    <div>
+        <ul class="days">
+            <li id="d2">Mon</li>
+            <li id="d3">Tue</li>
+            <li id="d4">Wed</li>
+            <li id="d5">Thu</li>
+            <li id="d6">Fri</li>
+            <li id="d7">Sat</li>
+            <li id="d1">Sun</li>
+        </ul>
+    </div>
+    <table>
+        <tr>
+            <td>STRAT</td>
+            <td>STOP</td>
+        </tr>
+        <tr>
+            <td>
+                <input type="time" id="startTime" min="0:00" max="23:00" required />
+            </td>
+            <td>
+                <input type="time" id="endTime" min="1:00" max="24:00" required />
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>
