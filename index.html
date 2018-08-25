@@ -22,8 +22,16 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             document.querySelectorAll("li").forEach((e) => {
-                e.addEventListener("click", (t) => {
-                    e.classList.toggle('selected');
+                e.addEventListener("click", (e) => {
+                    let classList = e.target.classList;
+                    let msg = {action: "dayChanged", id: e.target.id}
+                    if (classList.contains('selected')) {
+                        msg.val = 0;
+                    } else {
+                        msg.val = 1;
+                    }
+                    ws.send(JSON.stringify(msg));
+                    classList.toggle('selected');
                 });
             })
         });
